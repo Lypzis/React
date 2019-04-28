@@ -1,0 +1,8 @@
+.paragraph {
+    margin: 1rem;
+    padding: 2rem 4rem;
+    border: solid .5rem goldenrod;
+    box-shadow: 0 .5rem .2rem goldenrod;
+    color: orangered;
+    margin-bottom: 4rem;
+}

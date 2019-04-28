@@ -1,3 +1,15 @@
 .App {
   text-align: center;
 }
+
+.App > * {
+  margin: 3rem;
+}
+
+.App h1 {
+  font-size: 5rem;
+}
+
+.App p {
+  font-size: 3rem;
+}
