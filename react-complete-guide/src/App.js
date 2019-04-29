@@ -77,6 +77,15 @@ class App extends Component {
   } */
 
   render() {
+    // inline style
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '.8rem',
+      cursor: 'pointer'
+    }
+
     return (
       // this is not html, it's .jsx :D
       // use 'bind' and never 'this.switchNameHandler('Marx')' 
@@ -85,7 +94,7 @@ class App extends Component {
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!!! :O</p>
         
-        <button onClick={() => this.switchNameHandler('Unknown')}>Switch Name</button>
+        <button style={style} onClick={() => this.switchNameHandler('Unknown')}>Switch Name</button>
         <Person name={this.state.person[0].name} age={this.state.person[0].age} />
         <Person
           name={this.state.person[1].name}
