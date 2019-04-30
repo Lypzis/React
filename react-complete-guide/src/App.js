@@ -9,9 +9,9 @@ class App extends Component {
   state = {
     // array of objects
     person: [
-      { name: 'Max', age: 28 },
-      { name: 'Manu', age: 29 },
-      { name: 'Stephanie', age: 26 },
+        {id: 'aaa', name: 'Max', age: 28 },
+        {id: 'aab', name: 'Manu', age: 29 },
+        {id: 'abb', name: 'Stephanie', age: 27 }
     ],
     otherState: 'some other value hey',
     showPersons: false
@@ -25,14 +25,19 @@ class App extends Component {
     this.setState({person: persons}); // updates state with the new array
   }
 
-  nameChangedHandler = event => {
-    this.setState({
-      person: [
-        { name: 'Max', age: 28 },
-        { name: event.target.value, age: 29 },
-        { name: 'Stephanie', age: 27 }
-      ]
-    });
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.person.findIndex(person => person.id === id); // find respective person id
+   
+    //const person = {...this.state.person[personIndex]}; // makes a copy of the respective object
+    //person.name = event.target.value; // change the respective object name by the target value
+    //const persons = [...this.state.person]; // copy state persons array
+    //persons[personIndex] = person; // update respective person from persons array with new person object information
+
+    // OR
+    const persons = [...this.state.person]; // copy state person array
+    persons[personIndex].name = event.target.value; // change the respective person object name from the copy array by the target value
+    
+    this.setState({ person: persons }); // update state with the new information
   }
 
   // if showing, set to false, else to true, denying itself
@@ -55,13 +60,15 @@ class App extends Component {
     let persons = null;
     // the persons list block, default is null
     if (this.state.showPersons)
-      persons = (
+      persons = ( //always use map (the array function, not Map, if you know what I mean ;) ) to render lists
         <div>
           {this.state.person.map((person, index) => {
             return <Person
+              key={person.id}
               click={this.deletePersonHandler.bind(this, index)}
               name={person.name}
-              age={person.age} />
+              age={person.age} 
+              changed={event => this.nameChangedHandler(event, person.id)}/>
           })}
         </div>
       );
