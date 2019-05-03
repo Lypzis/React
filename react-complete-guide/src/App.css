@@ -13,3 +13,26 @@
 .App p {
   font-size: 3rem;
 }
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+/*
+.App button {
+  font-size: 2rem;
+  background-color: green;
+  color: #fff;
+  font: inherit;
+  border: 1px solid blue;
+  padding: .8rem;
+  cursor: pointer;
+}*/
