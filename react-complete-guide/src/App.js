@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+//import Radium, { StyleRoot } from 'radium';
 import './App.css';
 import Person from './Person/Person';
 
@@ -56,8 +57,16 @@ class App extends Component {
       border: '1px solid blue',
       padding: '.8rem',
       cursor: 'pointer',
-      outline: 'none'
+      outline: 'none',
+
+      // REMEMBER: pseudo selectors are only available if installing 'radium'
+      /*':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }*/
     }
+
+    // for pseudo selector in inline-styles, intall 'radium' package
 
     let persons = null;
     // the persons list block, default is null
@@ -77,6 +86,10 @@ class App extends Component {
 
       // dinamically changes background of the button, which is the one recieving the inline style object
       style.backgroundColor = 'red';
+      /*style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }*/
     }
 
     // creating a class list
@@ -95,18 +108,22 @@ class App extends Component {
       // this is not html, it's .jsx :D
       // use 'bind' and never 'this.switchNameHandler('Marx')' 
       // alternativelly to bind uses: '() => this.switchNameHandler()', though, not best practice
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!!! :O</p>
-        <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
-        {
-          // cannot use if statements inside here, so this is how its done, shows list if 'true',
-          // else, shows nothing ('null')
-          persons
-        }
-      </div>
+      // Style root is for wrapping the component, for 'radium', used in the main component
+      //<StyleRoot> 
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <p className={classes.join(' ')}>This is really working!!! :O</p>
+          <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          {
+            // cannot use if statements inside here, so this is how its done, shows list if 'true',
+            // else, shows nothing ('null')
+            persons
+          }
+        </div>
+      //</StyleRoot>
     );
   }
 }
 
-export default App;
+// 'radium' style will wrap the component from now on, for styling ;D 
+export default App; //Radium(App)
