@@ -9,3 +9,9 @@
 .paragraph {
     margin: 1.2rem;
 }
+
+@media only screen and (min-width: 31.25em) {
+    .Person {
+        width: 45rem;
+    }
+}

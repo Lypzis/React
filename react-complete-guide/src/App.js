@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import Radium, { StyleRoot } from 'radium';
-import './App.css';
+import appClasses from './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -50,7 +50,7 @@ class App extends Component {
   // Render elements to the dom
   render() {
     // inline style
-    const style = {
+    /*const style = {
       backgroundColor: 'green',
       color: '#fff',
       fontSize: '2rem',
@@ -60,15 +60,17 @@ class App extends Component {
       outline: 'none',
 
       // REMEMBER: pseudo selectors are only available if installing 'radium'
-      /*':hover': {
+      ':hover': {
         backgroundColor: 'lightgreen',
         color: 'black'
-      }*/
-    }
+      }
+    }*/
 
     // for pseudo selector in inline-styles, intall 'radium' package
 
     let persons = null;
+    let btnClass = '';
+
     // the persons list block, default is null
     if (this.state.showPersons) {
       persons = ( //always use map (the array function, not Map, if you know what I mean ;) ) to render lists
@@ -85,11 +87,13 @@ class App extends Component {
       );
 
       // dinamically changes background of the button, which is the one recieving the inline style object
-      style.backgroundColor = 'red';
+      //style.backgroundColor = 'red';
       /*style[':hover'] = {
         backgroundColor: 'salmon',
         color: 'black'
       }*/
+
+      btnClass = appClasses.red;
     }
 
     // creating a class list
@@ -97,11 +101,11 @@ class App extends Component {
 
     // dinamic classes
     if (this.state.person.length <= 2) {
-      classes.push('red');
+      classes.push(appClasses.red);
     }
 
     if (this.state.person.length < 2) {
-      classes.push('bold');
+      classes.push(appClasses.bold);
     }
 
     return (
@@ -109,17 +113,20 @@ class App extends Component {
       // use 'bind' and never 'this.switchNameHandler('Marx')' 
       // alternativelly to bind uses: '() => this.switchNameHandler()', though, not best practice
       // Style root is for wrapping the component, for 'radium', used in the main component
-      //<StyleRoot> 
-        <div className="App">
-          <h1>Hi, I'm a React App</h1>
-          <p className={classes.join(' ')}>This is really working!!! :O</p>
-          <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
-          {
-            // cannot use if statements inside here, so this is how its done, shows list if 'true',
-            // else, shows nothing ('null')
-            persons
-          }
-        </div>
+      //<StyleRoot>  // appClasses is now like an object  // button --> style={style}
+      <div className={appClasses.App}>
+        <h1>Hi, I'm a React App</h1>
+        <p className={classes.join(' ')}>This is really working!!! :O</p>
+        <button
+          className={btnClass}
+          onClick={this.togglePersonsHandler}
+        >Toggle Persons</button>
+        {
+          // cannot use if statements inside here, so this is how its done, shows list if 'true',
+          // else, shows nothing ('null')
+          persons
+        }
+      </div>
       //</StyleRoot>
     );
   }
