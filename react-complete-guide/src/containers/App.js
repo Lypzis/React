@@ -6,9 +6,30 @@ import Cockpit from '../components/Cockpit/Cockpit';
 //import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
+
+  // optional
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+
+    // old syntax of declaring state
+    /*
+    this.state = {
+      // array of objects
+      person: [
+        { id: 'aaa', name: 'Max', age: 28 },
+        { id: 'aab', name: 'Manu', age: 29 },
+        { id: 'abb', name: 'Stephanie', age: 27 }
+      ],
+      otherState: 'some other value hey',
+      showPersons: false
+    } */
+  }
+
   // only available in class based components
   // an state object, use it responsibly
   // the other option to this are 'HOOKS'
+  // modern syntax of decaring state.
   state = {
     // array of objects
     person: [
@@ -18,6 +39,22 @@ class App extends Component {
     ],
     otherState: 'some other value hey',
     showPersons: false
+  } 
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps ', props);
+
+    return state;
+  }
+
+  // legacy, use the above!
+  /*
+  componentWillMount() {
+    console.log('[App.js] componentWillMount');
+  } */
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount  yay! :D');
   }
 
   deletePersonHandler = personIndex => {
@@ -51,24 +88,9 @@ class App extends Component {
 
   // Render elements to the dom
   render() {
-    // inline style
-    /*const style = {
-      backgroundColor: 'green',
-      color: '#fff',
-      fontSize: '2rem',
-      border: '1px solid blue',
-      padding: '.8rem',
-      cursor: 'pointer',
-      outline: 'none',
+    console.log('[App.js] render')
 
-      // REMEMBER: pseudo selectors are only available if installing 'radium'
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    }*/
-
-    // for pseudo selector in inline-styles, intall 'radium' package
+    // for pseudo selectors in inline-styles, intall 'radium' package
 
     let persons = null;
 
@@ -83,30 +105,21 @@ class App extends Component {
           />
         </div>
       );
-
-      // dinamically changes background of the button, which is the one recieving the inline style object
-      //style.backgroundColor = 'red';
-      /*style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }*/
     }
 
     return (
       // this is not html, it's .jsx :D
-      // use 'bind' and never 'this.switchNameHandler('Marx')' 
-      // alternativelly to bind uses: '() => this.switchNameHandler()', though, not best practice
       // Style root is for wrapping the component, for 'radium', used in the main component
       //<StyleRoot>  // appClasses is now like an object  // button --> style={style}
       <div className={appClasses.App}>
         <Cockpit
+          title={this.props.appTitle}
           persons={this.state.person}
           show={this.state.showPersons}
           toggle={this.togglePersonsHandler}
         />
         {
-          // cannot use if statements inside here, so this is how its done, shows list if 'true',
-          // else, shows nothing ('null')
+          // cannot use if statements inside here, so this is how its done
           persons
         }
       </div>
@@ -115,5 +128,4 @@ class App extends Component {
   }
 }
 
-// 'radium' style will wrap the component from now on, for styling ;D 
 export default App; //Radium(App)
