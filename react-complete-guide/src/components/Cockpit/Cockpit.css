@@ -1,0 +1,48 @@
+.Cockpit > * {
+    margin: 3rem;
+}
+
+.Cockpit h1 {
+    font-size: 5rem;
+}
+
+.Cockpit p {
+    font-size: 3rem;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.Cockpit button {
+    background-color: green;
+    color: #fff;
+    font: inherit;
+    font-size: 2rem;
+    border: 1px solid blue;
+    padding: .8rem;
+    border-radius: .6rem;
+    cursor: pointer;
+}
+
+.Cockpit button:hover {
+    background-color: lightgreen;
+    color: black;
+}
+
+.Cockpit button.red { /*button.red*/
+    background-color: red;
+}
+
+.Cockpit button.red:hover {
+    background-color: salmon;
+    color: black;
+}

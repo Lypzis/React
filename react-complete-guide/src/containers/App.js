@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 //import Radium, { StyleRoot } from 'radium';
 import appClasses from './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
+//import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   // only available in class based components
@@ -70,23 +71,16 @@ class App extends Component {
     // for pseudo selector in inline-styles, intall 'radium' package
 
     let persons = null;
-    let btnClass = '';
 
     // the persons list block, default is null
     if (this.state.showPersons) {
       persons = ( //always use map (the array function, not Map, if you know what I mean ;) ) to render lists
         <div>
-          {this.state.person.map((person, index) => {
-            // wraps person, to check/prevent for errors
-            return <ErrorBoundary> 
-              <Person
-                key={person.id}
-                click={this.deletePersonHandler.bind(this, index)}
-                name={person.name}
-                age={person.age}
-                changed={event => this.nameChangedHandler(event, person.id)} />
-            </ErrorBoundary>
-          })}
+          <Persons
+            person={this.state.person}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangedHandler}
+          />
         </div>
       );
 
@@ -96,23 +90,7 @@ class App extends Component {
         backgroundColor: 'salmon',
         color: 'black'
       }*/
-
-      btnClass = appClasses.red;
     }
-
-    // creating a class list
-    let classes = [];
-
-    // dinamic classes
-    if (this.state.person.length <= 2) {
-      classes.push(appClasses.red);
-    }
-
-    if (this.state.person.length < 2) {
-      classes.push(appClasses.bold);
-    }
-
-
 
     return (
       // this is not html, it's .jsx :D
@@ -121,12 +99,11 @@ class App extends Component {
       // Style root is for wrapping the component, for 'radium', used in the main component
       //<StyleRoot>  // appClasses is now like an object  // button --> style={style}
       <div className={appClasses.App}>
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!!! :O</p>
-        <button
-          className={btnClass}
-          onClick={this.togglePersonsHandler}
-        >Toggle Persons</button>
+        <Cockpit
+          persons={this.state.person}
+          show={this.state.showPersons}
+          toggle={this.togglePersonsHandler}
+        />
         {
           // cannot use if statements inside here, so this is how its done, shows list if 'true',
           // else, shows nothing ('null')
