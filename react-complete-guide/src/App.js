@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import Radium, { StyleRoot } from 'radium';
 import appClasses from './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   // only available in class based components
@@ -76,12 +77,15 @@ class App extends Component {
       persons = ( //always use map (the array function, not Map, if you know what I mean ;) ) to render lists
         <div>
           {this.state.person.map((person, index) => {
-            return <Person
-              key={person.id}
-              click={this.deletePersonHandler.bind(this, index)}
-              name={person.name}
-              age={person.age}
-              changed={event => this.nameChangedHandler(event, person.id)} />
+            // wraps person, to check/prevent for errors
+            return <ErrorBoundary> 
+              <Person
+                key={person.id}
+                click={this.deletePersonHandler.bind(this, index)}
+                name={person.name}
+                age={person.age}
+                changed={event => this.nameChangedHandler(event, person.id)} />
+            </ErrorBoundary>
           })}
         </div>
       );
@@ -107,6 +111,8 @@ class App extends Component {
     if (this.state.person.length < 2) {
       classes.push(appClasses.bold);
     }
+
+
 
     return (
       // this is not html, it's .jsx :D
