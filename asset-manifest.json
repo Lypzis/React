@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/React/react-complete-guide/build/static/css/main.cc338190.chunk.css",
+    "main.js": "/React/react-complete-guide/build/static/js/main.e05929cc.chunk.js",
+    "main.js.map": "/React/react-complete-guide/build/static/js/main.e05929cc.chunk.js.map",
+    "runtime~main.js": "/React/react-complete-guide/build/static/js/runtime~main.849f62bb.js",
+    "runtime~main.js.map": "/React/react-complete-guide/build/static/js/runtime~main.849f62bb.js.map",
+    "static/js/2.fcd46767.chunk.js": "/React/react-complete-guide/build/static/js/2.fcd46767.chunk.js",
+    "static/js/2.fcd46767.chunk.js.map": "/React/react-complete-guide/build/static/js/2.fcd46767.chunk.js.map",
+    "index.html": "/React/react-complete-guide/build/index.html",
+    "precache-manifest.10deb0858ea5f280264bfe0aef0a7089.js": "/React/react-complete-guide/build/precache-manifest.10deb0858ea5f280264bfe0aef0a7089.js",
+    "service-worker.js": "/React/react-complete-guide/build/service-worker.js",
+    "static/css/main.cc338190.chunk.css.map": "/React/react-complete-guide/build/static/css/main.cc338190.chunk.css.map"
+  }
+}
