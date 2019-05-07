@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 //import Radium from 'radium';
-import personClasses from'./Person.css';
+import personClasses from './Person.css';
 
-const person = props => {
-    console.log('[Person.js] rendering...');
+class Person extends Component {
+    
 
-/* Only for testing the error boundary
-    const rnd = Math.random();
-
-    if(rnd > .7) {
-        throw new Error('Random Stupidity Elected');
+    /* Only for testing the error boundary
+        const rnd = Math.random();
+    
+        if(rnd > .7) {
+            throw new Error('Random Stupidity Elected');
+        }
+    */
+    render() {
+        console.log('[Person.js] rendering...');
+        return (
+            <div className={personClasses.Person} >
+                <p onClick={this.props.clicked} className={personClasses.paragraph}>I'm {this.props.name} and I am {this.props.age} years old!</p>
+                <input type="text" onChange={this.props.changed} />
+            </div>
+        );
     }
-*/
-    return (
-        <div className={personClasses.Person} >
-            <p onClick={props.clicked} className={personClasses.paragraph}>I'm {props.name} and I am {props.age} years old!</p>
-            <input type="text" onChange={props.changed}/>
-        </div>
-    );
+
 }
 
-export default person; //Radium(person)
+export default Person; //Radium(person)

@@ -38,8 +38,9 @@ class App extends Component {
       { id: 'abb', name: 'Stephanie', age: 27 }
     ],
     otherState: 'some other value hey',
-    showPersons: false
-  } 
+    showPersons: false,
+    showCockpit: true
+  }
 
   static getDerivedStateFromProps(props, state) {
     console.log('[App.js] getDerivedStateFromProps ', props);
@@ -55,6 +56,15 @@ class App extends Component {
 
   componentDidMount() {
     console.log('[App.js] componentDidMount  yay! :D');
+  }
+
+  componentDidUpdate() {
+    console.log('[App.js] componentDidUpdate');
+  }
+
+  shouldComponentUpdate(prevState, nextState) {
+    console.log('[App.js] shouldComponentUpdate');
+    return true; // prevent update with value 'false', default is true, which will then update
   }
 
   deletePersonHandler = personIndex => {
@@ -86,6 +96,11 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   }
 
+  toggleCockpitHandler = () => {
+    const doesShow = this.state.showCockpit;
+    this.setState({ showCockpit: !doesShow });
+  }
+
   // Render elements to the dom
   render() {
     console.log('[App.js] render')
@@ -93,6 +108,16 @@ class App extends Component {
     // for pseudo selectors in inline-styles, intall 'radium' package
 
     let persons = null;
+    let cockpit = (
+      <div>
+        <Cockpit
+          title={this.props.appTitle}
+          persons={this.state.person}
+          show={this.state.showPersons}
+          toggle={this.togglePersonsHandler}
+        />
+      </div>
+    );
 
     // the persons list block, default is null
     if (this.state.showPersons) {
@@ -107,17 +132,17 @@ class App extends Component {
       );
     }
 
+    if (!this.state.showCockpit) {
+      cockpit = null;
+    }
+
     return (
       // this is not html, it's .jsx :D
       // Style root is for wrapping the component, for 'radium', used in the main component
       //<StyleRoot>  // appClasses is now like an object  // button --> style={style}
       <div className={appClasses.App}>
-        <Cockpit
-          title={this.props.appTitle}
-          persons={this.state.person}
-          show={this.state.showPersons}
-          toggle={this.togglePersonsHandler}
-        />
+        <button onClick={this.toggleCockpitHandler}>Remove Cockpit</button>
+        {cockpit}
         {
           // cannot use if statements inside here, so this is how its done
           persons
