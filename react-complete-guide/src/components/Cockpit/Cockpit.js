@@ -10,11 +10,14 @@ const Cockpit = props => {
         console.log('[Cockpit.js] useEffect');
 
         // Http request simulation...
-        setTimeout(() => {
+        setTimeout(() => { // const timer = 
             alert('Saved data to cloud!');
         }, 1000);
 
-        return () => console.log('[Cockpit.js] cleanup work in useEffect');
+        return () => {
+            //clearTimeout(timer);
+            console.log('[Cockpit.js] cleanup work in useEffect');
+        }
     }, []); //[props.persons] will be called only on a change in persons list(in this case, otherwise, anything in the array),
     
     useEffect( () => {
@@ -26,11 +29,11 @@ const Cockpit = props => {
     let classes = [];
 
     // dinamic classes
-    if (props.persons.length <= 2) {
+    if (props.personsLenght <= 2) {
         classes.push(cockpitClasses.red);
     }
 
-    if (props.persons.length < 2) {
+    if (props.personsLenght < 2) {
         classes.push(cockpitClasses.bold);
     }
 
@@ -51,4 +54,4 @@ const Cockpit = props => {
     )
 };
 
-export default Cockpit;
+export default React.memo(Cockpit); // React will only re-render this component if it changes, memorizing its current state.

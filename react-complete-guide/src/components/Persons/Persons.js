@@ -1,26 +1,33 @@
-import React, {Component} from 'react';
+import React, { PureComponent } from 'react';
 import Person from './Person/Person';
 
 // list of person components
-class Persons extends Component {
-   /* 
-    static getDerivedStateFromProps(props, state){
-        console.log('[Persons.js] getDerivedStateFromProps');
-        return state;
-    }*/
+class Persons extends PureComponent { // Pure component automatically implement 'shouldComponentUpdate'
+    /* 
+     static getDerivedStateFromProps(props, state){
+         console.log('[Persons.js] getDerivedStateFromProps');
+         return state;
+     }*/
 
     //componentWillReceiveProps(props) {
     //  console.log('[Persons.js] componentWillReceiveProps', props);
     //}
 
-    shouldComponentUpdate(prevState, nextState) {
+    // Performance boost, as the name suggests, component will only update if it suffers some change
+    /* Use PureComponent if it is necessary to verify too much properties
+    shouldComponentUpdate(nextProps, nextState) {
         console.log('[Persons.js] shouldComponentUpdate');
-        return true;
-    }
+        if (nextProps.person !== this.props.person ||
+            nextProps.changed !== this.props.changed ||
+            nextProps.clicked !== this.props.clicked)
+            return true; // update component
+        else
+            return false; // don't update component
+    } */
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
         console.log('[Persons.js] getSnapshotBeforeUpdate');
-        return {message: 'Snapshot!'};
+        return { message: 'Snapshot!' };
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -44,14 +51,14 @@ class Persons extends Component {
                     key={person.id}
                     name={person.name}
                     age={person.age}
-    
+
                     clicked={this.props.clicked.bind(this, index)}
                     changed={event => this.props.changed(event, person.id)} />
             );
             //<ErrorBoundary></ErrorBoundary> would wrap Person component
         });
     }
-    
+
 }
 
 export default Persons;
