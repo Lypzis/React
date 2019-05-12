@@ -4,10 +4,10 @@ import cockpitClasses from './Cockpit.css';
 
 // the "main" component, first to show
 const Cockpit = props => {
-    console.log('[Cockpit.js] rendering...');
+    //console.log('[Cockpit.js] rendering...');
 
     useEffect( () => {
-        console.log('[Cockpit.js] useEffect');
+        //console.log('[Cockpit.js] useEffect');
 
         // Http request simulation...
         setTimeout(() => { // const timer = 
@@ -16,13 +16,13 @@ const Cockpit = props => {
 
         return () => {
             //clearTimeout(timer);
-            console.log('[Cockpit.js] cleanup work in useEffect');
+            //console.log('[Cockpit.js] cleanup work in useEffect');
         }
     }, []); //[props.persons] will be called only on a change in persons list(in this case, otherwise, anything in the array),
     
     useEffect( () => {
-        console.log('[Cockpit.js] 2nd useEffect');
-        return () => console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+        //console.log('[Cockpit.js] 2nd useEffect');
+        return () => null;//console.log('[Cockpit.js] cleanup work in 2nd useEffect');
     }); // withoud 2nd argument, it has no control of when it should run,so it will update for every lifecycle.
 
     // creating a class list

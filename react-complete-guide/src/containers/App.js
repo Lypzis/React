@@ -4,16 +4,18 @@ import appClasses from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 //import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/Aux';
 
 class App extends Component {
 
   // optional
-  constructor(props) {
+  /*constructor(props) {
     super(props);
-    console.log('[App.js] constructor');
+    //console.log('[App.js] constructor');
 
     // old syntax of declaring state
-    /*
+    
     this.state = {
       // array of objects
       person: [
@@ -23,8 +25,8 @@ class App extends Component {
       ],
       otherState: 'some other value hey',
       showPersons: false
-    } */
-  }
+    } 
+  }*/
 
   // only available in class based components
   // an state object, use it responsibly
@@ -39,11 +41,12 @@ class App extends Component {
     ],
     otherState: 'some other value hey',
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    changeCounter: 0
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log('[App.js] getDerivedStateFromProps ', props);
+    //console.log('[App.js] getDerivedStateFromProps ', props);
 
     return state;
   }
@@ -55,15 +58,15 @@ class App extends Component {
   } */
 
   componentDidMount() {
-    console.log('[App.js] componentDidMount  yay! :D');
+    //console.log('[App.js] componentDidMount  yay! :D');
   }
 
   componentDidUpdate() {
-    console.log('[App.js] componentDidUpdate');
+    //console.log('[App.js] componentDidUpdate');
   }
 
   shouldComponentUpdate(prevState, nextState) {
-    console.log('[App.js] shouldComponentUpdate');
+    //console.log('[App.js] shouldComponentUpdate');
     return true; // prevent update with value 'false', default is true, which will then update
   }
 
@@ -87,7 +90,15 @@ class App extends Component {
     const persons = [...this.state.person]; // copy state person array
     persons[personIndex].name = event.target.value; // change the respective person object name from the copy array by the target value
 
-    this.setState({ person: persons }); // update state with the new information
+    // best practice to update the state 
+    this.setState((prevState, props) => {
+      return {
+        person: persons,
+        changeCounter: prevState.changeCounter + 1 // refers to previous state, to avoid asynchronous misscalculations/errors
+      }
+      // update state with the new information
+    });
+    console.log(this.state.changeCounter);
   }
 
   // if showing, set to false, else to true, denying itself
@@ -103,7 +114,7 @@ class App extends Component {
 
   // Render elements to the dom
   render() {
-    console.log('[App.js] render')
+    //console.log('[App.js] render')
 
     // for pseudo selectors in inline-styles, intall 'radium' package
 
@@ -140,17 +151,17 @@ class App extends Component {
       // this is not html, it's .jsx :D
       // Style root is for wrapping the component, for 'radium', used in the main component
       //<StyleRoot>  // appClasses is now like an object  // button --> style={style}
-      <div className={appClasses.App}>
+      <Aux>
         <button onClick={this.toggleCockpitHandler}>Remove Cockpit</button>
         {cockpit}
         {
           // cannot use if statements inside here, so this is how its done
           persons
         }
-      </div>
+      </Aux>
       //</StyleRoot>
     );
   }
 }
 
-export default App; //Radium(App)
+export default withClass(App, appClasses.App); // //Radium(App)

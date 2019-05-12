@@ -26,21 +26,21 @@ class Persons extends PureComponent { // Pure component automatically implement 
     } */
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
-        console.log('[Persons.js] getSnapshotBeforeUpdate');
+        //console.log('[Persons.js] getSnapshotBeforeUpdate');
         return { message: 'Snapshot!' };
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('[Persons.js] componentDidUpdate');
-        console.log(snapshot);
+        //console.log('[Persons.js] componentDidUpdate');
+        //console.log(snapshot);
     }
 
     componentWillUnmount() {
-        console.log('[Persons.js] componentWillUnmount');
+        //console.log('[Persons.js] componentWillUnmount');
     }
 
     render() {
-        console.log('[Persons.js] rendering...');
+        //console.log('[Persons.js] rendering...');
         return this.props.person.map((person, index) => {
 
             // use 'bind' and never 'this.switchNameHandler('Marx')' 
