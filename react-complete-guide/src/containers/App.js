@@ -6,6 +6,7 @@ import Cockpit from '../components/Cockpit/Cockpit';
 //import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import withClass from '../hoc/withClass';
 import Aux from '../hoc/Aux';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
 
@@ -42,7 +43,8 @@ class App extends Component {
     otherState: 'some other value hey',
     showPersons: false,
     showCockpit: true,
-    changeCounter: 0
+    changeCounter: 0,
+    authenticated: false
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -98,7 +100,7 @@ class App extends Component {
       }
       // update state with the new information
     });
-    console.log(this.state.changeCounter);
+    // console.log(this.state.changeCounter);
   }
 
   // if showing, set to false, else to true, denying itself
@@ -111,6 +113,12 @@ class App extends Component {
     const doesShow = this.state.showCockpit;
     this.setState({ showCockpit: !doesShow });
   }
+
+  loginHandler = () => {
+    this.setState((prevState, props) => {
+      return { authenticated: !prevState.authenticated }
+    });
+  };
 
   // Render elements to the dom
   render() {
@@ -126,6 +134,7 @@ class App extends Component {
           personsLenght={this.state.person.length}
           show={this.state.showPersons}
           toggle={this.togglePersonsHandler}
+          login={this.loginHandler}
         />
       </div>
     );
@@ -138,6 +147,7 @@ class App extends Component {
             person={this.state.person}
             clicked={this.deletePersonHandler}
             changed={this.nameChangedHandler}
+            isAuthenticated={this.state.authenticated}
           />
         </div>
       );
@@ -153,11 +163,17 @@ class App extends Component {
       //<StyleRoot>  // appClasses is now like an object  // button --> style={style}
       <Aux>
         <button onClick={this.toggleCockpitHandler}>Remove Cockpit</button>
-        {cockpit}
-        {
-          // cannot use if statements inside here, so this is how its done
-          persons
-        }
+        <AuthContext.Provider value={{ // auth-context needs to wrapp all components that are going to need its values, Provider
+          authenticated: this.state.authenticated,
+          login: this.loginHandler
+        }}>
+          {cockpit}
+          {
+            // cannot use if statements inside here, so this is how its done
+            persons
+          }
+        </AuthContext.Provider>
+
       </Aux>
       //</StyleRoot>
     );

@@ -53,7 +53,8 @@ class Persons extends PureComponent { // Pure component automatically implement 
                     age={person.age}
 
                     clicked={this.props.clicked.bind(this, index)}
-                    changed={event => this.props.changed(event, person.id)} />
+                    changed={event => this.props.changed(event, person.id)}
+                />
             );
             //<ErrorBoundary></ErrorBoundary> would wrap Person component
         });
