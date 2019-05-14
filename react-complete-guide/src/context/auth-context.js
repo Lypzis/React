@@ -1,7 +1,8 @@
 import React from 'react';
 
-// makes it possible to jump steps when passing down properties, like 'a' to 'd'
-// avoiding unecessary redundancy and increasing usability of components
+// React.createContext makes it possible to jump steps when passing down properties, like 'a' to 'd'
+// avoiding unecessary redundancy and increasing usability of components.
+// especially usefull in long chains!
 const authContext = React.createContext({
     authenticated: false,
     login: () => {}

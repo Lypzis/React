@@ -1,18 +1,23 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 
 import cockpitClasses from './Cockpit.css';
+
+import AuthContext from '../../context/auth-context'
 
 // the "main" component, first to show
 const Cockpit = props => {
     //console.log('[Cockpit.js] rendering...');
     const toggleBtnRef = useRef(null); // for referecing functional components
     //let toggleBtnRef; 
+    
+    // hook used to declare a context constant
+    const authContext = useContext(AuthContext);
 
     // IMPORTANT: runs after every render cycle!
     useEffect(() => {
         //console.log('[Cockpit.js] useEffect');
 
-        // will automatically click(toggle) the button, after it has been created
+        // will automatically click (toggle) the button, after it has been created
         //toggleBtnRef.click(); 
         toggleBtnRef.current.click();
 
@@ -61,9 +66,7 @@ const Cockpit = props => {
                 onClick={props.toggle}>
                 Toggle Persons
             </button>
-            <button onClick={props.login}>
-                Log in
-            </button>
+            <button onClick={authContext.login}>Log in</button>
         </div>
     )
 };

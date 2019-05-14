@@ -15,10 +15,14 @@ class Person extends Component {
         this.inputElementRef = React.createRef();
     }
 
+    // Now it is possible to access the context within the class as 'this.context'
+    // can ONLY be declared in class based components, unless using hooks :D
+    static contextType = AuthContext;
 
     componentDidMount() {
         // this.inputElementRef.focus();
         this.inputElementRef.current.focus(); // will focus the input from the last mounted Person component
+        console.log(this.context.authenticated);
     }
 
     /* Only for testing the error boundary
@@ -34,20 +38,20 @@ class Person extends Component {
         // also can be set as an anonymous function: ref={inputEl => this.inputElementRef = inputEl}
         return ( // className={personClasses.Person}
             // here, we consume the value of the values passed from the provider.
-            // will have to pass 'context =>'  
+            // will have to pass 'context =>'  or this.context
             // Now the value passes "directly" from 'App.js' to 'Person.js' :D
-            <AuthContext.Consumer>
-                {context => <Aux>
-                    {
-                        context.authenticated ? <p className={personClasses.paragraph}>Authenticated!</p> :
-                            <p className={personClasses.paragraph}>Please, log in!</p>
-                    }
-                    <p onClick={this.props.clicked} className={personClasses.paragraph}>
-                        I'm {this.props.name} and I am {this.props.age} years old!</p>
-                    <input ref={this.inputElementRef} type="text" onChange={this.props.changed} />
-                </Aux>
+            <Aux>
+                {
+                    this.context.authenticated ?
+                        <p className={personClasses.paragraph}>Authenticated!</p> :
+                        <p className={personClasses.paragraph}>Please, log in!</p>
                 }
-            </AuthContext.Consumer>
+                <p onClick={this.props.clicked} className={personClasses.paragraph}>
+                    I'm {this.props.name} and I am {this.props.age} years old!</p>
+                <input ref={this.inputElementRef} type="text" onChange={this.props.changed} />
+            </Aux>
+
+
         );
     }
 
